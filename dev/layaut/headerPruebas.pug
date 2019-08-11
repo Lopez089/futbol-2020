@@ -1,0 +1,45 @@
+block headerPruebas
+header.main-header
+    nav.navbar.navbar-expand-lg.navbar-light.d-flex
+        .container
+            img(src="/svg/futbol-regular.svg", alt="" width="30" height="30").navbar-brand.bg-white
+            ul.nav
+                li.nav-item
+                    a.text-white.nav-link(href="/") pruebas
+                li.nav-item
+                    a.text-white.nav-link(href="/2,5") +2,5
+                li.nav-item
+                    a.text-white.nav-link(href="/G-2,5") Ganador/+2,5
+                li.nav-item
+                    a.text-white.nav-link(href="/ambos") Ambos Marcan
+                li.nav-item
+                    a.text-white.nav-link(href="/2,5-ambos") Ambos Marcan / +2,5
+    .container
+        .h4.mt-5.text-primary=titulo
+        if equipos.length > 0
+            each equipo in equipos
+                .color.tarjeta.border.border-dark.shadow.mt-5.mb-5
+                    .row.col-sm-12.col-lg-12.col-md-12.text-white.ml-0.cabecera
+                        .mt-3.mb-3.col-md-4.col-sm-4.col-lg-4.d-flex.justify-content-center.align-content-center
+                            p=`${'Jornada '+ equipo.jornada}`
+                        .mt-3.mb-3.col-md-4.col-sm-4.col-lg-4.d-flex.align-content-center.justify-content-center
+                            p=equipo.liga
+                        .mt-3.mb-3.col-md-4.col-sm-4.col-lg-4.d-flex.align-content-center.justify-content-center
+                            p=equipo.hora
+                    .row.col-sm-12.col-lg-12.col-md-12
+                        .flex-column.col-md-4.col-sm-4.col-lg-4.d-flex.align-content-center.justify-content-center
+                            .row.d-flex.align-content-center.justify-content-center.mt-3
+                                img(src=`${equipo.logo1}`)
+                            .row.d-flex.align-content-center.justify-content-center
+                                p=equipo.eq1
+                        .col-md-4.col-sm-4.col-lg-4.d-flex.align-content-center.justify-content-center.text-center
+                            h1.display-1.h-75.w-100.mt-4.border-right.border-left=equipo.ResultadoFinal1 +'-' + equipo.ResultadoFinal2
+                        .flex-column.col-md-4.col-sm-4.col-lg-4.d-flex.align-content-center.justify-content-center
+                            .row.d-flex.align-content-center.justify-content-center.mt-3
+                                img(src=`${equipo.logo2}`)
+                            .row.d-flex.align-content-center.justify-content-center
+                                p=equipo.eq2
+        else
+            .container-fluid.d-flex.align-content-center.justify-content-center
+                .alert.alert-danger.w-75.mt-5
+                    p.lead ooooh!!! Lo sentimos no ahi partidos para hoy. Intentalo mañana, Gracias

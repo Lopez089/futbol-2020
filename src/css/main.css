@@ -1,1 +1,15 @@
-html{height:100%}html body{height:100%}html body header{height:100%}
+html{height:100%; font-size: calc(16px + (24 - 16)*(100vw - 400px)/(1920 - 400));}html body{height:100%}html body header{height:100%} 
+.color{
+    color: #707070;
+    font-family: montserrat;
+}
+.tarjeta{
+    border-radius: 30px;
+}
+.cabecera{
+    border-radius: 29px 29px 0px 0px;
+    background:#707070;
+}
+nav{
+    background:#707070;
+}

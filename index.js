@@ -217,29 +217,34 @@ app.set("view engine", "pug")
 app.use(express.static('./src'));
 app.get("/", function(req,res){
     let titulo = 'Ganador'
-    res.render('index', {equipos: GanadorFilter, titulo });
+    res.render('indexPrueba', {equipos: GanadorFilter, titulo });
     console.log('servidor cargado')
 
 });
 
 app.get("/2,5", function(req,res){
     let titulo = '+2,5'
-    res.render('index', {equipos: masDosFilter, titulo  })
+    res.render('indexPrueba', {equipos: masDosFilter, titulo  })
 })
 
 app.get("/G-2,5", function(req,res){
     let titulo = 'Ganador / +2,5'
-    res.render('index', {equipos: GanadorMasDosFilter , titulo })
+    res.render('indexPrueba', {equipos: GanadorMasDosFilter , titulo })
 })
 
 app.get("/ambos", function(req,res){
     let titulo = 'Ambos Equipos Marcan'
-    res.render('index', {equipos: AmbosFilter, titulo })
+    res.render('indexPrueba', {equipos: AmbosFilter, titulo })
 })
 
 app.get("/2,5-ambos", function(req,res){
     let titulo = 'Ambos Marcan / 2,5'
-    res.render('index', {equipos: AmbosMasDosFilter, titulo })
+    res.render('indexPrueba', {equipos: AmbosMasDosFilter, titulo })
+})
+
+app.get("/Pruevas", function(req,res){
+    let titulo = 'Pruevas'
+    res.render('indexPrueba', {equipos: AmbosFilter, titulo })
 })
 
 app.set("port", process.env.PORT || 3030);
