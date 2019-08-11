@@ -19,8 +19,10 @@ const ligas = [
     "https://es.soccerway.com/national/france/ligue-1/20192020/regular-season/r53638/matches/?ICID=PL_3N_02",
     "https://es.soccerway.com/national/netherlands/eredivisie/20192020/regular-season/r54058/matches/?ICID=PL_3N_02",
     "https://es.soccerway.com/national/turkey/super-lig/20192020/regular-season/r53866/matches/?ICID=PL_3N_02",
-    "https://es.soccerway.com/national/portugal/portuguese-liga-/20192020/regular-season/r53517/matches/?ICID=PL_3N_02"
-    ]
+    "https://es.soccerway.com/national/portugal/portuguese-liga-/20192020/regular-season/r53517/matches/?ICID=PL_3N_02",
+    "https://es.soccerway.com/national/belgium/pro-league/20192020/regular-season/r53516/?ICID=HP_POP_11",    
+    "https://es.soccerway.com/national/turkey/super-lig/20192020/regular-season/r53866/?ICID=HP_POP_07"
+]
 
 const direcionBase = "https://es.soccerway.com"
 
@@ -114,9 +116,38 @@ const datos = (equiposHoy)=>{
                     //console.log(r)
                     //console.log('resultado ')
                     return r >=2 || r <= -2})
-        })
+
+                // FILTRAR AMBOS EQUIPOS MARCAN
+                AmbosFilter =  _.filter(equiposPorJugar , (o)=> {
+                    return o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0
+                })
+
+                // FILTRAR +2,5
+                masDosFilter =  _.filter(equiposPorJugar , (o)=> {
+                    let s = o.ResultadoFinal1 + o.ResultadoFinal2 
+                    return s >= 3
+                })
+
+                // FILTRAR GANADOR +2,5
+                GanadorMasDosFilter =  _.filter(equiposPorJugar , (o)=> {
+                    let r = o.ResultadoFinal1 - o.ResultadoFinal2
+                    let s = o.ResultadoFinal1 + o.ResultadoFinal2
+                    //console.log(r)
+                    //console.log('resultado ')
+                    return r >=2 || r <= -2 && s >= 3
+                })
+
+                // FILTRAR AMBOS MARCAN +2,5
+                AmbosMasDosFilter =  _.filter(equiposPorJugar , (o)=> {
+                    let r = o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0
+                    let s = o.ResultadoFinal1 + o.ResultadoFinal2
+                    //console.log(r)
+                    //console.log('resultado ')
+                    return o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0 && s >= 3
+                })
     })
-    }
+})
+}
 
 // EXTRAER URL PARTIDO
 const url = ()=>{
@@ -193,17 +224,22 @@ app.get("/", function(req,res){
 
 app.get("/2,5", function(req,res){
     let titulo = '+2,5'
-    res.render('index', {equipos: datossOrd, titulo  })
+    res.render('index', {equipos: masDosFilter, titulo  })
 })
 
 app.get("/G-2,5", function(req,res){
     let titulo = 'Ganador / +2,5'
-    res.render('index', {equipos: datossOrd , titulo })
+    res.render('index', {equipos: GanadorMasDosFilter , titulo })
 })
 
 app.get("/ambos", function(req,res){
     let titulo = 'Ambos Equipos Marcan'
-    res.render('index', {equipos: datossOrd, titulo })
+    res.render('index', {equipos: AmbosFilter, titulo })
+})
+
+app.get("/2,5-ambos", function(req,res){
+    let titulo = 'Ambos Marcan / 2,5'
+    res.render('index', {equipos: AmbosMasDosFilter, titulo })
 })
 
 app.set("port", process.env.PORT || 3030);

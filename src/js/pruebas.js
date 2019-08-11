@@ -87,11 +87,11 @@ const _ = require('lodash');
 const equiposPorJugar = [
   {
     ResultadoFinal1: 1,
-    ResultadoFinal2: 2
+    ResultadoFinal2: 3
   },
   {
-    ResultadoFinal1: 7,
-    ResultadoFinal2: 3
+    ResultadoFinal1: 3,
+    ResultadoFinal2: 1
   }
 ]
 
@@ -101,21 +101,38 @@ GanadorFilter =  _.filter(equiposPorJugar , (o)=> {
   console.log('resultado ')
   return r >=2 || r <= -2})
 
-console.log(GanadorFilter)
+//console.log(GanadorFilter)
 
-// 1   >   2
-// 1+2  >=  2  no es mayor
-// 3 >= 2  falso
-// otro
-// 0 >= 2 
-// 2 >= 2   true
-// otro 
-// 2  1 
-// 
+AmbosFilter =  _.filter(equiposPorJugar , (o)=> {
+  return o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0
+})
+
+//console.log(AmbosFilter)
+
+masDosFilter =  _.filter(equiposPorJugar , (o)=> {
+  let s = o.ResultadoFinal1 + o.ResultadoFinal2 
+  return s >= 3
+})
+
+//console.log(masDosFilter)
 
 
+GanadorMasDosFilter =  _.filter(equiposPorJugar , (o)=> {
+  let r = o.ResultadoFinal1 - o.ResultadoFinal2
+  let s = o.ResultadoFinal1 + o.ResultadoFinal2
+  console.log(r)
+  console.log('resultado ')
+  return r >=2 || r <= -2 && s >= 3
+})
 
+//console.log(GanadorMasDosFilter)
 
+AmbosMasDosFilter =  _.filter(equiposPorJugar , (o)=> {
+  let r = o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0
+  let s = o.ResultadoFinal1 + o.ResultadoFinal2
+  console.log(r)
+  console.log('resultado ')
+  return o.ResultadoFinal1 > 0 && o.ResultadoFinal2 > 0 && s >= 3
+})
 
-
-// 1 <= 2+2   es mayor
+console.log(AmbosMasDosFilter)
